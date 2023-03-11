@@ -1,0 +1,80 @@
+# Copyright (C) 2023 inc2734
+# This file is distributed under the GPL2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Snow Monkey Google Fonts 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/snow-monkey-google-fonts\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2023-03-11T14:33:44+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.7.1\n"
+"X-Domain: snow-monkey-google-fonts\n"
+
+#. Plugin Name of the plugin
+msgid "Snow Monkey Google Fonts"
+msgstr ""
+
+#. Description of the plugin
+msgid "This plugin adds Google Fonts to the basic font settings."
+msgstr ""
+
+#. Author of the plugin
+msgid "inc2734"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://2inc.org"
+msgstr ""
+
+#: snow-monkey-google-fonts.php:53
+msgid "[Snow Monkey Google Fonts] Needs the Snow Monkey."
+msgstr ""
+
+#. translators: %1$s: version
+#: snow-monkey-google-fonts.php:83
+msgid "[Snow Monkey Google Fonts] Needs the Snow Monkey %1$s or more."
+msgstr ""
+
+#: snow-monkey-google-fonts.php:111
+#: snow-monkey-google-fonts.php:133
+#: snow-monkey-google-fonts.php:155
+msgid "Thin 100"
+msgstr ""
+
+#: snow-monkey-google-fonts.php:115
+#: snow-monkey-google-fonts.php:137
+#: snow-monkey-google-fonts.php:159
+#: snow-monkey-google-fonts.php:177
+msgid "Light 300"
+msgstr ""
+
+#: snow-monkey-google-fonts.php:119
+#: snow-monkey-google-fonts.php:141
+#: snow-monkey-google-fonts.php:163
+#: snow-monkey-google-fonts.php:181
+msgid "Medium 500"
+msgstr ""
+
+#: snow-monkey-google-fonts.php:123
+#: snow-monkey-google-fonts.php:145
+msgid "Extra-Bold 800"
+msgstr ""
+
+#: snow-monkey-google-fonts.php:127
+#: snow-monkey-google-fonts.php:149
+#: snow-monkey-google-fonts.php:167
+#: snow-monkey-google-fonts.php:189
+msgid "Black 900"
+msgstr ""
+
+#: snow-monkey-google-fonts.php:173
+msgid "Extra-Light 200"
+msgstr ""
+
+#: snow-monkey-google-fonts.php:185
+msgid "Semi-Bold 600"
+msgstr ""

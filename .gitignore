@@ -1,0 +1,9 @@
+.DS_Store
+vendor/
+node_modules/
+snow-monkey-google-fonts.zip
+snow-monkey-google-fonts
+dist/
+npm-debug.log
+.wp-env.override.json
+/.export/*
