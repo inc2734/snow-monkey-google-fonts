@@ -169,23 +169,23 @@ class Bootstrap {
 		);
 
 		// noto-serif-jp
-		$settings['noto-sans-jp']['variation']['200'] = array(
+		$settings['noto-serif-jp']['variation']['200'] = array(
 			'label' => __( 'Extra-Light 200', 'snow-monkey-google-fonts' ),
 			'src'   => SNOW_MONKEY_GOOGLE_FONTS_URL . '/fonts/NotoSerifJP-ExtraLight.woff2',
 		);
-		$settings['noto-sans-jp']['variation']['300'] = array(
+		$settings['noto-serif-jp']['variation']['300'] = array(
 			'label' => __( 'Light 300', 'snow-monkey-google-fonts' ),
 			'src'   => SNOW_MONKEY_GOOGLE_FONTS_URL . '/fonts/NotoSerifJP-Light.woff2',
 		);
-		$settings['noto-sans-jp']['variation']['500'] = array(
+		$settings['noto-serif-jp']['variation']['500'] = array(
 			'label' => __( 'Medium 500', 'snow-monkey-google-fonts' ),
 			'src'   => SNOW_MONKEY_GOOGLE_FONTS_URL . '/fonts/NotoSerifJP-Medium.woff2',
 		);
-		$settings['noto-sans-jp']['variation']['600'] = array(
+		$settings['noto-serif-jp']['variation']['600'] = array(
 			'label' => __( 'Semi-Bold 600', 'snow-monkey-google-fonts' ),
 			'src'   => SNOW_MONKEY_GOOGLE_FONTS_URL . '/fonts/NotoSerifJP-SemiBold.woff2',
 		);
-		$settings['noto-sans-jp']['variation']['900'] = array(
+		$settings['noto-serif-jp']['variation']['900'] = array(
 			'label' => __( 'Black 900', 'snow-monkey-google-fonts' ),
 			'src'   => SNOW_MONKEY_GOOGLE_FONTS_URL . '/fonts/NotoSerifJP-Black.woff2',
 		);
