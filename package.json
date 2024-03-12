@@ -41,7 +41,8 @@
 		"zip:pack": "rsync -a --exclude='/vendor' --exclude='/node_modules' --exclude='.*' --exclude='*.xml.dist' --exclude='/tests' --exclude='package*.json' . snow-monkey-google-fonts && wp-env start && npm run composer install -- --no-dev -d snow-monkey-google-fonts",
 		"zip:archive": "zip -9 -qmr snow-monkey-google-fonts.zip snow-monkey-google-fonts",
 		"zip": "npm run clean:zip && npm run zip:pack && npm run zip:archive",
-		"make-pot": "npm run wp i18n -- make-pot . ./languages/snow-monkey-google-fonts.pot --exclude=src"
+		"make-pot": "npm run wp i18n -- make-pot . ./languages/snow-monkey-google-fonts.pot --exclude=src",
+		"make-php": "npm run cli php -- wp-content/plugins/snow-monkey-google-fonts/bin/l10n.php"
 	},
 	"dependencies": {}
 }
