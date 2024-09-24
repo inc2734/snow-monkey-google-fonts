@@ -2,7 +2,7 @@
 /**
  * Plugin name: Snow Monkey Google Fonts
  * Version: 1.2.0
- * Tested up to: 6.5
+ * Tested up to: 6.6
  * Requires at least: 6.2
  * Requires PHP: 7.4
  * Requires Snow Monkey: 20.0.0
@@ -46,7 +46,7 @@ class Bootstrap {
 		if ( 'snow-monkey' !== $theme->template && 'snow-monkey/resources' !== $theme->template ) {
 			add_action(
 				'admin_notices',
-				function() {
+				function () {
 					?>
 					<div class="notice notice-warning is-dismissible">
 						<p>
@@ -72,14 +72,14 @@ class Bootstrap {
 		) {
 			add_action(
 				'admin_notices',
-				function() use ( $data ) {
+				function () use ( $data ) {
 					?>
 					<div class="notice notice-warning is-dismissible">
 						<p>
 							<?php
 							echo esc_html(
 								sprintf(
-									// translators: %1$s: version
+									// translators: %1$s: version.
 									__(
 										'[Snow Monkey Google Fonts] Needs the Snow Monkey %1$s or more.',
 										'snow-monkey-google-fonts'
@@ -102,11 +102,11 @@ class Bootstrap {
 	/**
 	 * Add fonts settings.
 	 *
-	 * @param array $settings See snow-monkey/Framework/Helper.php: get_font_family_settings()
+	 * @param array $settings See snow-monkey/Framework/Helper.php: get_font_family_settings().
 	 * @return array
 	 */
 	public function _snow_monkey_font_family_settings( $settings ) {
-		// m-plus-1p
+		// m-plus-1p.
 		$settings['m-plus-1p']['variation']['100'] = array(
 			'label' => __( 'Thin 100', 'snow-monkey-google-fonts' ),
 			'src'   => SNOW_MONKEY_GOOGLE_FONTS_URL . '/fonts/MPLUS1p-Thin.woff2',
@@ -128,7 +128,7 @@ class Bootstrap {
 			'src'   => SNOW_MONKEY_GOOGLE_FONTS_URL . '/fonts/MPLUS1p-Black.woff2',
 		);
 
-		// m-plus-rounded-1c
+		// m-plus-rounded-1c.
 		$settings['m-plus-rounded-1c']['variation']['100'] = array(
 			'label' => __( 'Thin 100', 'snow-monkey-google-fonts' ),
 			'src'   => SNOW_MONKEY_GOOGLE_FONTS_URL . '/fonts/MPLUSRounded1c-Thin.woff2',
@@ -150,7 +150,7 @@ class Bootstrap {
 			'src'   => SNOW_MONKEY_GOOGLE_FONTS_URL . '/fonts/MPLUSRounded1c-Black.woff2',
 		);
 
-		// noto-sans-jp
+		// noto-sans-jp.
 		$settings['noto-sans-jp']['variation']['100'] = array(
 			'label' => __( 'Thin 100', 'snow-monkey-google-fonts' ),
 			'src'   => SNOW_MONKEY_GOOGLE_FONTS_URL . '/fonts/NotoSansJP-Thin.woff2',
@@ -168,7 +168,7 @@ class Bootstrap {
 			'src'   => SNOW_MONKEY_GOOGLE_FONTS_URL . '/fonts/NotoSansJP-Black.woff2',
 		);
 
-		// noto-serif-jp
+		// noto-serif-jp.
 		$settings['noto-serif-jp']['variation']['200'] = array(
 			'label' => __( 'Extra-Light 200', 'snow-monkey-google-fonts' ),
 			'src'   => SNOW_MONKEY_GOOGLE_FONTS_URL . '/fonts/NotoSerifJP-ExtraLight.woff2',
@@ -208,5 +208,5 @@ class Bootstrap {
 	}
 }
 
-require_once( SNOW_MONKEY_GOOGLE_FONTS_PATH . '/vendor/autoload.php' );
+require_once SNOW_MONKEY_GOOGLE_FONTS_PATH . '/vendor/autoload.php';
 new Bootstrap();
