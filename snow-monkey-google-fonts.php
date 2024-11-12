@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin name: Snow Monkey Google Fonts
- * Version: 1.2.1
+ * Version: 1.2.2
  * Tested up to: 6.6
  * Requires at least: 6.2
  * Requires PHP: 7.4
