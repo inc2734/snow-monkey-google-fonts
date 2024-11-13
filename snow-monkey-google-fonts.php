@@ -2,8 +2,8 @@
 /**
  * Plugin name: Snow Monkey Google Fonts
  * Version: 1.2.2
- * Tested up to: 6.6
- * Requires at least: 6.2
+ * Tested up to: 6.7
+ * Requires at least: 6.7
  * Requires PHP: 7.4
  * Requires Snow Monkey: 20.0.0
  * Description: This plugin adds Google Fonts to the basic font settings.
