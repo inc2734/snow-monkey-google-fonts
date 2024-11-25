@@ -39,7 +39,8 @@ class Bootstrap {
 	 */
 	public function _bootstrap() {
 		add_action( 'init', array( $this, '_load_textdomain' ) );
-		add_action( 'init', array( $this, '_activate_autoupdate' ) );
+
+		new App\Updater();
 
 		$theme = wp_get_theme( get_template() );
 		if ( 'snow-monkey' !== $theme->template && 'snow-monkey/resources' !== $theme->template ) {
@@ -197,20 +198,6 @@ class Bootstrap {
 	 */
 	public function _load_textdomain() {
 		load_plugin_textdomain( 'snow-monkey-google-fonts', false, basename( __DIR__ ) . '/languages' );
-	}
-
-	/**
-	 * Activate auto update using GitHub.
-	 */
-	public function _activate_autoupdate() {
-		new \Inc2734\WP_GitHub_Plugin_Updater\Bootstrap(
-			plugin_basename( __FILE__ ),
-			'inc2734',
-			'snow-monkey-google-fonts',
-			array(
-				'homepage' => 'https://snow-monkey.2inc.org',
-			)
-		);
 	}
 }
 
