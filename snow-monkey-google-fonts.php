@@ -2,10 +2,10 @@
 /**
  * Plugin name: Snow Monkey Google Fonts
  * Version: 1.2.5
- * Tested up to: 6.7
- * Requires at least: 6.7
+ * Tested up to: 7.0
+ * Requires at least: 7.0
  * Requires PHP: 7.4
- * Requires Snow Monkey: 20.0.0
+ * Requires Snow Monkey: 30.0.2
  * Description: This plugin adds Google Fonts to the basic font settings.
  * Author: inc2734
  * Author URI: https://2inc.org
@@ -96,7 +96,142 @@ class Bootstrap {
 			return;
 		}
 
-		add_filter( 'snow_monkey_font_family_settings', array( $this, '_snow_monkey_font_family_settings' ) );
+		add_filter(
+			'snow_monkey_font_family_settings',
+			array( $this, '_snow_monkey_font_family_settings' )
+		);
+
+		add_filter(
+			'wp_theme_json_data_theme',
+			array( $this, '_wp_theme_json_data_theme' )
+		);
+	}
+
+	/**
+	 * Return quoted font-family name for fontFace.
+	 *
+	 * @param string $font_family Font family.
+	 * @return string
+	 */
+	protected function _quote_font_face_family( $font_family ) {
+		$font_family = trim( $font_family );
+
+		if ( preg_match( '/^".+"$/', $font_family ) || preg_match( "/^'.+'$/", $font_family ) ) {
+			return $font_family;
+		}
+
+		return '"' . addcslashes( $font_family, '"\\' ) . '"';
+	}
+
+	/**
+	 * Return comparable font weight.
+	 *
+	 * @param string $font_weight Font weight.
+	 * @return string
+	 */
+	protected function _normalize_font_weight( $font_weight ) {
+		$font_weight = (string) $font_weight;
+		if ( preg_match( '/^\d+/', $font_weight, $matches ) ) {
+			return $matches[0];
+		}
+
+		return $font_weight;
+	}
+
+	/**
+	 * Return whether the font face is defined.
+	 *
+	 * @param array  $font_faces Font faces.
+	 * @param string $font_weight Font weight.
+	 * @return boolean
+	 */
+	protected function _has_font_face( $font_faces, $font_weight ) {
+		if ( ! is_array( $font_faces ) ) {
+			return false;
+		}
+
+		$font_weight = $this->_normalize_font_weight( $font_weight );
+
+		foreach ( $font_faces as $font_face ) {
+			if ( empty( $font_face['fontWeight'] ) ) {
+				continue;
+			}
+
+			if ( $font_weight === $this->_normalize_font_weight( $font_face['fontWeight'] ) ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Add bundled font faces to theme.json.
+	 *
+	 * @param WP_Theme_JSON_Data $theme_json Theme JSON data.
+	 * @return WP_Theme_JSON_Data
+	 */
+	public function _wp_theme_json_data_theme( $theme_json ) {
+		$theme_json_data = $theme_json->get_data();
+		$font_families   = isset( $theme_json_data['settings']['typography']['fontFamilies'] )
+			? $theme_json_data['settings']['typography']['fontFamilies']
+			: array();
+
+		if ( ! is_array( $font_families ) ) {
+			return $theme_json;
+		}
+
+		$settings = $this->_snow_monkey_font_family_settings( array() );
+		$updated  = false;
+
+		foreach ( $font_families as $index => $font_family ) {
+			if ( empty( $font_family['slug'] ) || empty( $settings[ $font_family['slug'] ]['variation'] ) ) {
+				continue;
+			}
+
+			if ( empty( $font_families[ $index ]['fontFace'] ) || ! is_array( $font_families[ $index ]['fontFace'] ) ) {
+				$font_families[ $index ]['fontFace'] = array();
+			}
+
+			$font_family_name = ! empty( $font_family['name'] )
+				? $font_family['name']
+				: $font_family['slug'];
+
+			foreach ( $settings[ $font_family['slug'] ]['variation'] as $font_weight => $variation ) {
+				if (
+					empty( $variation['src'] ) ||
+					$this->_has_font_face( $font_families[ $index ]['fontFace'], $font_weight )
+				) {
+					continue;
+				}
+
+				$font_families[ $index ]['fontFace'][] = array(
+					'fontFamily' => $this->_quote_font_face_family( $font_family_name ),
+					'fontWeight' => (string) $font_weight,
+					'fontStyle'  => 'normal',
+					'src'        => array( $variation['src'] ),
+				);
+
+				$updated = true;
+			}
+		}
+
+		if ( ! $updated ) {
+			return $theme_json;
+		}
+
+		$theme_json->update_with(
+			array(
+				'version'  => isset( $theme_json_data['version'] ) ? $theme_json_data['version'] : 3,
+				'settings' => array(
+					'typography' => array(
+						'fontFamilies' => $font_families,
+					),
+				),
+			)
+		);
+
+		return $theme_json;
 	}
 
 	/**
