@@ -172,10 +172,19 @@ class Bootstrap {
 	 * @return WP_Theme_JSON_Data
 	 */
 	public function _wp_theme_json_data_theme( $theme_json ) {
-		$theme_json_data = $theme_json->get_data();
-		$font_families   = isset( $theme_json_data['settings']['typography']['fontFamilies'] )
+		$theme_json_data   = $theme_json->get_data();
+		$font_families_raw = isset( $theme_json_data['settings']['typography']['fontFamilies'] )
 			? $theme_json_data['settings']['typography']['fontFamilies']
 			: array();
+
+		$font_families_are_origin_keyed = (
+			is_array( $font_families_raw ) &&
+			isset( $font_families_raw['theme'] ) &&
+			is_array( $font_families_raw['theme'] )
+		);
+		$font_families                  = $font_families_are_origin_keyed
+			? $font_families_raw['theme']
+			: $font_families_raw;
 
 		if ( ! is_array( $font_families ) ) {
 			return $theme_json;
@@ -220,12 +229,18 @@ class Bootstrap {
 			return $theme_json;
 		}
 
+		if ( $font_families_are_origin_keyed ) {
+			$font_families_raw['theme'] = $font_families;
+		} else {
+			$font_families_raw = $font_families;
+		}
+
 		$theme_json->update_with(
 			array(
 				'version'  => isset( $theme_json_data['version'] ) ? $theme_json_data['version'] : 3,
 				'settings' => array(
 					'typography' => array(
-						'fontFamilies' => $font_families,
+						'fontFamilies' => $font_families_raw,
 					),
 				),
 			)
