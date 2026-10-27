@@ -11,6 +11,48 @@
 class Test_Font_Faces extends WP_UnitTestCase {
 
 	/**
+	 * Register every bundled font without changing unrelated settings.
+	 */
+	public function test_font_settings_reference_all_bundled_woff2_files() {
+		$existing_settings = array(
+			'custom-font'  => array( 'fontFamily' => 'Custom Font' ),
+			'noto-sans-jp' => array(
+				'variation' => array(
+					'400' => array( 'src' => 'https://example.org/regular.woff2' ),
+				),
+			),
+		);
+		$bootstrap         = new \Snow_Monkey\Plugin\GoogleFonts\Bootstrap();
+		$settings          = $bootstrap->_snow_monkey_font_family_settings( $existing_settings );
+
+		$this->assertSame( $existing_settings['custom-font'], $settings['custom-font'] );
+		$this->assertSame(
+			$existing_settings['noto-sans-jp']['variation']['400'],
+			$settings['noto-sans-jp']['variation']['400']
+		);
+
+		$font_files = array();
+		foreach ( $settings as $setting ) {
+			foreach ( isset( $setting['variation'] ) ? $setting['variation'] : array() as $variation ) {
+				if ( 0 !== strpos( $variation['src'], SNOW_MONKEY_GOOGLE_FONTS_URL . '/fonts/' ) ) {
+					continue;
+				}
+
+				$font_file = SNOW_MONKEY_GOOGLE_FONTS_PATH . '/fonts/' . basename( $variation['src'] );
+				$this->assertFileExists( $font_file );
+				$this->assertSame( 'wOF2', file_get_contents( $font_file, false, null, 0, 4 ) );
+				$font_files[] = $font_file;
+			}
+		}
+
+		$bundled_files = glob( SNOW_MONKEY_GOOGLE_FONTS_PATH . '/fonts/*.woff2' );
+		sort( $bundled_files );
+		sort( $font_files );
+		$this->assertNotEmpty( $font_files );
+		$this->assertSame( $bundled_files, $font_files );
+	}
+
+	/**
 	 * Return a font family by slug.
 	 *
 	 * @param array  $font_families Font families.
@@ -93,6 +135,14 @@ class Test_Font_Faces extends WP_UnitTestCase {
 		$this->assertSame(
 			array( SNOW_MONKEY_GOOGLE_FONTS_URL . '/fonts/NotoSansJP-Light.woff2' ),
 			$font_faces_by_weight['300']['src']
+		);
+		$this->assertSame(
+			array( 'file:./assets/fonts/NotoSansJP-Regular.woff2' ),
+			$font_faces_by_weight['400']['src']
+		);
+		$this->assertSame(
+			$raw_data,
+			$bootstrap->_wp_theme_json_data_theme( $result )->get_data()
 		);
 	}
 }
